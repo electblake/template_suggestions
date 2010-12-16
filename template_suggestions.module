@@ -8,15 +8,21 @@ function template_suggestions_preprocess(&$vars,$hook) {
 		if ($vars['is_front']) {
 			$vars['template_files'][] = 'node-'.$node->type.'-front';
 		}
+		if ($vars['node']->teaser) {
+		  $vars['template_files'][] = 'node-'.$node->type.'-teaser';
+		}
+		
+		if ($vars['node']->teaser and $vars['is_front']) {
+		  $vars['template_files'][] = 'node-'.$node->type.'-front-teaser';
+		}
 		
 	}
 	if ($hook == 'page') {
-		
+	
 		// if page request comes from AJAX  (tested with jQuery)
 		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH']=="XMLHttpRequest") {
   		$vars['template_files'][] = 'page-ajax';
 		}
-		
 		
 	}
 	
