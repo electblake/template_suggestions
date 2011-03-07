@@ -4,24 +4,23 @@
 function template_suggestions_preprocess(&$vars,$hook) {
 	if ($hook == 'node') {
 		$node = $vars['node'];
-		
+
 		if ($vars['is_front']) {
-			$vars['template_files'][] = 'node-'.$node->type.'-front';
+			$vars['theme_hook_suggestions'][] = 'node__'.$node->type.'_front';
 		}
-		if ($vars['node']->teaser) {
-		  $vars['template_files'][] = 'node-'.$node->type.'-teaser';
-		}
-		
-		if ($vars['node']->teaser and $vars['is_front']) {
-		  $vars['template_files'][] = 'node-'.$node->type.'-front-teaser';
+		if ($vars['view_mode'] == 'teaser') {
+		  $vars['theme_hook_suggestions'][] = 'node__'.$node->type.'_teaser';
 		}
 		
+		if ($vars['view_mode'] == 'teaser' and $vars['is_front']) {
+		  $vars['theme_hook_suggestions'][] = 'node__'.$node->type.'_front_teaser';
+		}
 	}
 	if ($hook == 'page') {
 	
 		// if page request comes from AJAX  (tested with jQuery)
 		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH']=="XMLHttpRequest") {
-  		$vars['template_files'][] = 'page-ajax';
+  		$vars['theme_hook_suggestions'][] = 'page_ajax';
 		}
 		
 	}
