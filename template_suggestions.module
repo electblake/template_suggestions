@@ -1,20 +1,20 @@
 <?php
-
+function template_suggestions_menu_alter(&$items) {
+	//dpm($items);
+}
 // suggest new template files
 function template_suggestions_preprocess(&$vars,$hook) {
+	if ($hook == 'page') {
+		//dpm(menu_get_item($_GET['q']));
+	}
 	if ($hook == 'node') {
 		$node = $vars['node'];
 
 		if ($vars['is_front']) {
-			$vars['theme_hook_suggestions'][] = 'node__'.$node->type.'_front';
-		}
-		if ($vars['view_mode'] == 'teaser') {
-		  $vars['theme_hook_suggestions'][] = 'node__'.$node->type.'_teaser';
+			$vars['theme_hook_suggestions'][] = 'node__' . $node->type . '_front';
 		}
 		
-		if ($vars['view_mode'] == 'teaser' and $vars['is_front']) {
-		  $vars['theme_hook_suggestions'][] = 'node__'.$node->type.'_front_teaser';
-		}
+    $vars['theme_hook_suggestions'][] = 'node__' . $node->type . '_' . $vars['view_mode'];
 	}
 	if ($hook == 'page') {
 	
@@ -27,5 +27,16 @@ function template_suggestions_preprocess(&$vars,$hook) {
 	
 }
 
+function template_suggestions_entity_info_alter(&$entities) {
+	$entities['node']['view modes']['modal'] = array(
+    'label' => 'Modal',
+    'custom settings' => FALSE,
+  );
+    
+  $entities['node']['view modes']['widget'] = array(
+    'label' => 'Widget',
+    'custom settings' => TRUE,
+  );
+}
 
 ?>
