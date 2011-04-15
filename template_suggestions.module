@@ -26,15 +26,22 @@ function template_suggestions_preprocess(&$vars,$hook) {
 	}
 	
 }
-
+/*
+	Implements hook_entity_info_alter().
+*/
 function template_suggestions_entity_info_alter(&$entities) {
 	$entities['node']['view modes']['modal'] = array(
     'label' => 'Modal',
-    'custom settings' => FALSE,
+    'custom settings' => TRUE,
   );
     
   $entities['node']['view modes']['widget'] = array(
     'label' => 'Widget',
+    'custom settings' => TRUE,
+  );
+  
+  $entities['node']['view modes']['widgetalt'] = array(
+    'label' => 'Widget Alternate',
     'custom settings' => TRUE,
   );
 }
